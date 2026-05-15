@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Responsive Card (Bulma)</title>
+    <!-- Importing Bulma CSS framework via CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS for Premium Animations and Aesthetics -->
+    <style>
+        /* Animated Gradient Background */
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glassmorphism Card Style */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Image Zoom Animation */
+        .card-image figure { overflow: hidden; }
+        .card-image img { transition: transform 0.6s ease; }
+        .glass-card:hover .card-image img { transform: scale(1.08); }
+
+        /* Pulse Animation for Button */
+        .btn-pulse {
+            animation: pulse-animation 2s infinite;
+        }
+
+        @keyframes pulse-animation {
+            0% { box-shadow: 0 0 0 0 rgba(72, 199, 116, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(72, 199, 116, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(72, 199, 116, 0); }
+        }
+
+        /* Modal Custom Styles */
+        .modal-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .modal-card-head, .modal-card-foot {
+            background: #f8f9fa;
+            border-color: #e2e8f0;
+        }
+        .custom-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .custom-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .custom-list li:last-child {
+            border-bottom: none;
+        }
+        .custom-list i {
+            color: #48c774;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <section class="section" style="width: 100%;">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-5-desktop is-8-tablet">
+                    
+                    <div class="card glass-card">
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80" alt="Coding Workspace">
+                            </figure>
+                        </div>
+                        
+                        <div class="card-content">
+                            <div class="tags mb-3">
+                                <span class="tag is-info is-light rounded">Frontend</span>
+                                <span class="tag is-primary is-light rounded">UI/UX</span>
+                            </div>
+
+                            <div class="media mb-4">
+                                <div class="media-left">
+                                    <figure class="image is-48x48">
+                                        <img class="is-rounded" src="https://ui-avatars.com/api/?name=C+Z&background=0D8ABC&color=fff" alt="Avatar">
+                                    </figure>
+                                </div>
+                                <div class="media-content">
+                                    <p class="title is-4 has-text-weight-bold">Web Dev Masterclass</p>
+                                    <p class="subtitle is-6 has-text-grey">@cognifyz_interns</p>
+                                </div>
+                            </div>
+
+                            <div class="content has-text-grey-dark">
+                                Learn to build <strong>stunning, responsive</strong> user interfaces with modern CSS frameworks. This enhanced card features dynamic background gradients, glassmorphism, and micro-animations.
+                            </div>
+                            
+                            <div class="is-flex is-justify-content-space-between is-align-items-center mt-5">
+                                <p class="is-size-7 has-text-grey">
+                                    <i class="far fa-clock"></i> 4 min read
+                                </p>
+                                <!-- Button Triggers Modal -->
+                                <button id="openModal" class="button is-success is-rounded has-text-weight-semibold btn-pulse">
+                                    <span>Read More</span>
+                                    <span class="icon is-small">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bulma Modal Structure for "Read More" Content -->
+    <div class="modal" id="readMoreModal">
+        <div class="modal-background" id="modalBg"></div>
+        <div class="modal-card p-4">
+            <header class="modal-card-head">
+                <p class="modal-card-title has-text-weight-bold"><i class="fas fa-laptop-code has-text-info mr-2"></i> Masterclass Curriculum</p>
+                <button class="delete close-modal" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <h4 class="title is-5 mb-3">What you will achieve:</h4>
+                <p class="mb-4">This comprehensive internship track is designed to transition you from foundational knowledge to building professional, responsive layouts. Dive deep into CSS frameworks like Bulma and Bootstrap.</p>
+                
+                <h4 class="title is-5 mb-3">Core Modules:</h4>
+                <ul class="custom-list">
+                    <li><i class="fas fa-check-circle"></i> Responsive Grid Systems & Flexbox</li>
+                    <li><i class="fas fa-check-circle"></i> Modern Styling (Glassmorphism, Dark Mode)</li>
+                    <li><i class="fas fa-check-circle"></i> Interactive CSS Keyframe Animations</li>
+                    <li><i class="fas fa-check-circle"></i> Framework Integration (Bootstrap & Bulma)</li>
+                    <li><i class="fas fa-check-circle"></i> Mobile-First Web Architecture</li>
+                </ul>
+                
+                <div class="notification is-info is-light mt-4">
+                    <strong>Note:</strong> Completion of this module unlocks the advanced JavaScript framework tasks.
+                </div>
+            </section>
+            <footer class="modal-card-foot is-justify-content-flex-end">
+                <button class="button close-modal">Cancel</button>
+                <button class="button is-info">Start Module</button>
+            </footer>
+        </div>
+    </div>
+
+    <!-- JavaScript to Handle Modal Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('readMoreModal');
+            const openBtn = document.getElementById('openModal');
+            const bgOverlay = document.getElementById('modalBg');
+            const closeBtns = document.querySelectorAll('.close-modal');
+
+            // Open Modal
+            openBtn.addEventListener('click', () => {
+                modal.classList.add('is-active');
+            });
+
+            // Close Modal via Background or Buttons
+            const closeModal = () => {
+                modal.classList.remove('is-active');
+            };
+
+            bgOverlay.addEventListener('click', closeModal);
+            closeBtns.forEach(btn => {
+                btn.addEventListener('click', closeModal);
+            });
+        });
+    </script>
+</body>
+</html>
