@@ -29,7 +29,7 @@ This component features a modern "Glassmorphism" card sitting on top of a contin
 
 <div align="center">
 
-![Glassmorphism Card Preview](/Users/kishansah/.gemini/antigravity/brain/8a3dc77b-66c4-49e6-b274-b1087d0e715f/task1_card_preview_1778581492184.png)
+![Glassmorphism Card Preview](assets/task1_card_preview.png)
 
 </div>
 
@@ -40,7 +40,7 @@ A sleek, dark-themed "Services" section demonstrating Bootstrap's powerful respo
 
 <div align="center">
 
-![Dark Mode Grid Preview](/Users/kishansah/.gemini/antigravity/brain/8a3dc77b-66c4-49e6-b274-b1087d0e715f/task1_grid_preview_1778581512218.png)
+![Dark Mode Grid Preview](assets/task1_grid_preview.png)
 
 </div>
 
